@@ -7,10 +7,7 @@ const vermelho = chalk.red;
 function tratarErro(erro) {
   if (erro.code === "EISDIR") {
     throw new Error(
-      chalk.red(
-        erro.code,
-        "Não há arquivo no caminho, pois o caminho é um diretorio."
-      )
+      vermelho(erro.code, "Não há arquivo, pois o caminho é um diretorio.")
     );
   }
   throw new Error(vermelho(erro.code, "Arquivo selecionado não existe."));
@@ -38,4 +35,4 @@ async function pegaArquivo(caminhoDoArquivo) {
 //     .catch((erro) => tratarErro(erro));
 // }
 
-pegaArquivo("./arquivos/texto1.md");
+pegaArquivo("./arquivos/");
