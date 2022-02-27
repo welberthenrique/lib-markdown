@@ -3,6 +3,7 @@ import * as fs from "fs";
 const cl = console.log;
 const verde = chalk.green;
 const vermelho = chalk.red;
+const amarelo = chalk.yellow;
 
 function tratarErro(erro) {
   if (erro.code === "EISDIR") {
@@ -22,6 +23,8 @@ async function pegaArquivo(caminhoDoArquivo) {
     cl(verde(texto));
   } catch (erro) {
     tratarErro(erro);
+  } finally {
+    cl(amarelo("Operação concluída!"));
   }
 }
 
@@ -35,4 +38,4 @@ async function pegaArquivo(caminhoDoArquivo) {
 //     .catch((erro) => tratarErro(erro));
 // }
 
-pegaArquivo("./arquivos/");
+pegaArquivo("./arquivos/texto1.md");
