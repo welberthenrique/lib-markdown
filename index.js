@@ -1,27 +1,41 @@
 import chalk from "chalk";
 import * as fs from "fs";
-const log = console.log;
+const cl = console.log;
+const verde = chalk.green;
+const vermelho = chalk.red;
 
 function tratarErro(erro) {
-  throw new Error(chalk.red(erro.code, "Não há arquivo no caminho."));
+  if (erro.code === "EISDIR") {
+    throw new Error(
+      chalk.red(
+        erro.code,
+        "Não há arquivo no caminho, pois o caminho é um diretorio."
+      )
+    );
+  }
+  throw new Error(vermelho(erro.code, "Arquivo selecionado não existe."));
 }
 
-function pegaArquigo(caminhoDoArquivo) {
-  const encoding = "utf-8";
-  fs.promises
-    .readFile(caminhoDoArquivo, encoding)
-    .then((texto) => log(chalk.green(texto)))
-    .catch((erro) => tratarErro(erro));
+//utilizando async e await
+
+async function pegaArquivo(caminhoDoArquivo) {
+  try {
+    const encoding = "utf-8";
+    const texto = await fs.promises.readFile(caminhoDoArquivo, encoding);
+    cl(verde(texto));
+  } catch (erro) {
+    tratarErro(erro);
+  }
 }
 
-// function pegaArquigo(caminhoDoArquivo) {
+//UTILIZANDO .then()
+
+// function pegaArquivo(caminhoDoArquivo) {
 //   const encoding = "utf-8";
-//   fs.readFile(caminhoDoArquivo, encoding, (erro, texto) => {
-//     if (erro) {
-//       tratarErro(erro);
-//     }
-//     console.log(chalk.green(texto));
-//   });
+//   fs.promises
+//     .readFile(caminhoDoArquivo, encoding)
+//     .then((texto) => log(verde(texto)))
+//     .catch((erro) => tratarErro(erro));
 // }
 
-pegaArquigo("./arquivos/texto1.md");
+pegaArquivo("./arquivos/texto1.md");
