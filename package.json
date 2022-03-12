@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "cli": "node cli.js ./arquivos/texto1.md" ,
     "test:essencial": "jest -t Essencial",
     "test:desejavel": "jest -t Desejável",
     "test:desafio": "jest -t Desafio",
