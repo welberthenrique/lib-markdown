@@ -1,6 +1,8 @@
 import chalk from "chalk";
-import * as fs from "fs";
+import { promises } from "fs";
+
 const cl = console.log;
+// eslint-disable-next-line no-unused-vars
 const verde = chalk.green;
 const vermelho = chalk.red;
 const amarelo = chalk.yellow;
@@ -31,7 +33,7 @@ function tratarErro(erro) {
 async function pegaArquivo(caminhoDoArquivo) {
   try {
     const encoding = "utf-8";
-    const texto = await fs.promises.readFile(caminhoDoArquivo, encoding);
+    const texto = await promises.readFile(caminhoDoArquivo, encoding);
     return extraiLinks(texto);
   } catch (erro) {
     tratarErro(erro);
